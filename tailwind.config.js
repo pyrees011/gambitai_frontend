@@ -10,6 +10,8 @@ module.exports = {
   theme: {
   	extend: {
   		colors: {
+			customGreen: '#5d9948',
+			neutralswhite: 'var(--color-neutrals-white)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -55,7 +57,13 @@ module.exports = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		fontFamily: {
+			heading: ['var(--font-family-heading)', 'sans-serif'],
+		},
+		fontSize: {
+			'heading-clamp': 'clamp(3.6rem, 4vw, 4.8rem)',
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

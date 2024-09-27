@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-neutrals-white: #ffffff; /* Custom color */
+  --font-family-heading: 'Arial', sans-serif; /* Custom font family */
 }
 
 @media (prefers-color-scheme: dark) {
