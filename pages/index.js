@@ -1,10 +1,7 @@
-import Image from "next/image";
-import localFont from "next/font/local";
+import LandingView from '../views/landing/landing-view';
 
 export default function Home() {
   return (
-    <div>
-      index
-    </div>
+    <LandingView />
   );
 }
