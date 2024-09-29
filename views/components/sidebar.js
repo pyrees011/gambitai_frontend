@@ -21,7 +21,7 @@ export default function Sidebar() {
 
   return (
     <div className='bg-gray-100 w-[200px] h-full flex flex-col text-gray-800 sticky top-0'>
-      <div className='w-full h-12 flex items-center justify-left bg-transparent border-none p-4 mt-4 mb-2'>
+      <div className='w-full h-12 flex items-center justify-left bg-transparent border-none p-4 mt-4 mb-2 hover:cursor-pointer' onClick={() => router.push('/')}>
             <Image src={'/chess.png'} alt='image' width={32} height={32} className='relative z-10'/>
             <p className='text-3xl font-bold absolute left-9 top-5'>GAMBITAI</p>
         </div>
