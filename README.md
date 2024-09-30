@@ -1,40 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GambitAI Frontend
 
-## Getting Started
+## Overview
+GambitAI is an interactive chess helper bot that enables users to play chess and engage in discussions about chess strategies with an AI model. The frontend is built using **Next.js**, **ShadCN**, and **Tailwind CSS**, providing a responsive and engaging user experience.
 
-First, run the development server:
+## Tech Stack
+- **Framework**: Next.js
+- **UI Components**: ShadCN
+- **Styling**: Tailwind CSS
+- **Websockets**: realtime transfer of data
 
+## Code Structure
+### Code Pattern
+In this project, I have utilized Next.js's **pages router** for routing. Each page has a corresponding view located in the **views** directory. Components that are common across the application can be found in the **components** subdirectory within the views folder. This structure helps maintain a clear separation of concerns and enhances code organization.
+
+## Features
+- landing page
+### pages
+    -- /
+
+- User registration and login functionality
+### pages
+    -- /register and /login
+
+- Interactive chess game interface
+### pages
+    -- /play
+
+- Real-time chat with the AI bot
+### pages
+    -- /play
+
+- Game history tracking and home page
+### pages
+    -- /home
+
+- Responsive design for seamless use on various devices
+
+## Code Quality Tools
+To maintain high code quality and consistency, the following tools are utilized:
+- **ESLint**: For identifying and fixing issues in JavaScript code
+- **Prettier**: For automatic code formatting
+- **Pre-commit Hooks**: To ensure code quality checks are run before commits
+
+To run code quality checks and formatting, use the following commands:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Check code quality
+npm run lint
+
+# Format code
+npm run format
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Getting Started
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Follow these steps to set up the GambitAI backend locally:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Clone the Repository
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+git clone https://github.com/pyrees011/gambitAi_frontend.git
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## install dependencies
 
-## Learn More
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## run the client
+```bash
+npm run dev
+```
