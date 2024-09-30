@@ -8,6 +8,14 @@ import { Input } from '@/components/ui/input'
 import { Apple } from 'lucide-react';
 import CompanySvg from '@/views/components/companySvg';
 
+// firebase
+import { auth } from '@/config/firebase_config';
+import { createUserWithEmailAndPassword ,sendEmailVerification } from 'firebase/auth';
+
+// toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function FirstForm({ setStep }) {
   const [form, setForm] = useState({
     email: '',
@@ -21,10 +29,22 @@ export default function FirstForm({ setStep }) {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setStep(2)
-    console.log(form)
+    if (!form.email || !form.password) {
+      return toast.error('Please fill in all the fields')
+    }
+    try {
+      console.log('register', form)
+      const res = await createUserWithEmailAndPassword(auth, form.email, form.password)
+      console.log('register', res)
+
+      await sendEmailVerification(res.user)
+      setStep(2)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
 
@@ -42,13 +62,13 @@ export default function FirstForm({ setStep }) {
               <label className="mb-1 block text-sm font-medium" htmlFor="email">
                 Email*
               </label>
-              <Input id="email" placeholder="Enter your email" type="email" className="py-6" value={form.email} onChange={handleChange} />
+              <Input id="email" placeholder="Enter your email" type="email" className="py-6" value={form.email} onChange={handleChange} required/>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium" htmlFor="password">
                 Password*
               </label>
-              <Input id="password" placeholder="Choose a password" type="password" className="py-6" value={form.password} onChange={handleChange} />
+              <Input id="password" placeholder="Choose a password" type="password" className="py-6" value={form.password} onChange={handleChange} required/>
             </div>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -68,6 +88,7 @@ export default function FirstForm({ setStep }) {
             </Button>
             <Button className="w-full bg-green-600 hover:bg-green-700" onClick={handleSubmit}>Continue</Button>
           </form>
+          <ToastContainer />
         </div>
   )
 }

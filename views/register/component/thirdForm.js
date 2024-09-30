@@ -16,6 +16,9 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 
+// axios
+import { instance } from '@/utils/axios';
+
 export default function ThirdForm({ setStep }) {
     const [form, setForm] = useState({
         username: '',
@@ -44,6 +47,8 @@ export default function ThirdForm({ setStep }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Send the form data to the server
+        instance.post('/profile', form);
         setStep(4);
         console.log(form);
     }

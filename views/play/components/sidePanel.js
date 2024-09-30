@@ -1,25 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // shadecn
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-  import { Separator } from "@/components/ui/separator"
-  
 
 // utils
 import { cn } from "@/lib/utils"
 import ChatBot from './chatBot'
+import GamePanel from './gamePanel'
     
 
-export default function SidePanel() {
+export default function SidePanel({ chatName, gameID }) {
+
   return (
     <Tabs defaultValue="game" className="w-full h-full">
   <TabsList className="w-full p-0">
@@ -28,38 +19,13 @@ export default function SidePanel() {
     <CustomTabsTrigger value="friends" id="friends" className={'rounded-tr-lg'}/>
   </TabsList>
   <TabsContent value="game" className="flex justify-center items-center">
-        <div className='p-2 flex flex-col justify-center items-start w-full h-full'>
-            <p className='text-white font-bold text-2xl mb-2'>Moves</p>
-            <Separator />
-            <Table className="text-white w-full">
-                <TableBody className="w-full">
-                    { !exampleGameMoves?.length && (
-                        <TableRow className="bg-slate-500 h-10">
-                            <TableCell className="font-medium">No moves yet</TableCell>
-                        </TableRow>
-                    )}
-                    { exampleGameMoves?.map((move, index) => (
-                        <TableRow className={ cn('bg-slate-500 h-10', {
-                            'bg-slate-700': index % 2 === 0
-                        })}>
-                            <TableCell className="font-medium">{ index + 1 }</TableCell>
-                            <TableCell>{ move.from }</TableCell>
-                            <TableCell>{ move.to }</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            {/* <div className='flex justify-center items-center mt-auto'>
-                <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold rounded-lg py-2 px-4'>Undo</button>
-            </div> */}
-
-        </div>
+        <GamePanel gameID={gameID}/>
     </TabsContent>
   <TabsContent value="friends" className="flex justify-center items-center">
         Coming soon
     </TabsContent>
   <TabsContent value="AI" className="flex justify-start items-center">
-        <ChatBot />
+        <ChatBot chatName={chatName}/>
     </TabsContent>
 </Tabs>
   )
@@ -73,22 +39,3 @@ const CustomTabsTrigger = ({ value, className, id }) => (
         {id}
     </TabsTrigger>
 )
-
-const exampleGameMoves = [
-    {
-        from: 'e2',
-        to: 'e4',
-    }, 
-    {
-        from: 'e7',
-        to: 'e5',
-    }, 
-    {
-        from: 'g1',
-        to: 'f3',
-    }, 
-    {
-        from: 'b8',
-        to: 'c6',
-    }
-]

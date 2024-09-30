@@ -13,11 +13,16 @@ import { FileQuestion } from 'lucide-react';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
+// firebase
+import { auth } from '@/config/firebase_config';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from 'firebase/auth'
+
 
 
 export default function Sidebar() {
     const router = useRouter()
-    const [ isAuth, setIsAuth ] = useState(true)
+    const [user] = useAuthState(auth)
 
   return (
     <div className='bg-gray-100 w-[200px] h-full flex flex-col text-gray-800 sticky top-0'>
@@ -39,7 +44,7 @@ export default function Sidebar() {
             <Input type="text" placeholder="Search" className="h-10 border-black placeholder:text-black"/>
         </div>
 
-      { !isAuth ? (
+      { !user ? (
         <div className='px-4 mb-4'>
           <Button className="w-full bg-slate-500 h-12 text-md font-bold mb-4 hover:bg-gray-700" onClick={() => router.push('/register')}>Register</Button>
           <Button className="w-full bg-gray-400 h-12 text-md font-bold hover:bg-gray-700" onClick={() => router.push('/login')}>Login</Button>
@@ -47,12 +52,15 @@ export default function Sidebar() {
       ) : null}
 
       <div className='mt-auto mb-4'>
-        {sidebarFooterInfo.map((item, index) => (
-          <Button key={index} className="w-full bg-transparent flex justify-start items-center px-6 shadow-none hover:bg-transparent">
-            {item.icon}
-            <p className='text-md font-semibold text-gray-700'>{item.title}</p>
-          </Button>
-        ))}
+        {sidebarFooterInfo.map((item, index) => {
+            if (item.auth && !user) return null
+            return (
+                <Button key={index} className="w-full bg-transparent flex justify-start items-center px-6 shadow-none hover:bg-transparent" onClick={item.onClick}>
+                {item.icon}
+                <p className='text-md font-semibold text-gray-700'>{item.title}</p>
+                </Button>
+            )
+        })}
       </div>
     </div>
   )
@@ -96,8 +104,16 @@ const sidebarFooterInfo = [
         icon: <SunMoon size={20} color='black' className='mr-2'/>
     },
     {
-        title: 'Settings',
-        icon: <Settings size={20} color='black' className='mr-2'/>
+        auth: true,
+        title: 'log out',
+        icon: <Settings size={20} color='black' className='mr-2'/>,
+        onClick: () => {
+            signOut(auth).then(() => {
+                console.log('signed out')
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
     },
     {
         title: 'Support',

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // component
 import Sidebar from '../components/sidebar'
@@ -7,7 +8,24 @@ import ThreeDButton from '../components/threeDButton'
 import { Button } from '@/components/ui/button'
 import Footer from '../components/footer'
 
+// firebase
+import { auth } from '@/config/firebase_config'
+import { useAuthState } from 'react-firebase-hooks/auth'
+
 export default function landingView() {
+  const router = useRouter()
+  const [user] = useAuthState(auth)
+
+  useEffect(() => {
+    if (user) {
+      router.push('/home')
+    }
+  }, [user])
+
+  if (user) {
+    return null
+  }
+  
   return (
     <div className='h-screen bg-gray-200 flex'>
       <div className='h-full'>
